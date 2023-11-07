@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  Checks:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: [3.9]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pdm install
+      - name: Run Tests
+        run: |
+          pdm run -v checks

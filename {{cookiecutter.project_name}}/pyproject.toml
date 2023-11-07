@@ -1,0 +1,45 @@
+[project]
+name = "{{cookiecutter.project_name}}"
+version = "{{cookiecutter.project_version}}"
+description = ""
+authors = [
+    {name = "{{cookiecutter.author_name}}", email = "{{cookiecutter.author_email}}"},
+]
+dependencies = []
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = ""}
+
+[tool.pdm.dev-dependencies]
+dependencies = [
+    "ruff>=0.0.291",
+    "pytest>=7.4.2",
+    "isort>=5.12.0",
+    "black>=23.9.1",
+    "pre-commit>=3.4.0",
+    "commitizen>=3.10.0",
+    "questionary>=2.0.1",
+    "mkdocs-material>=9.4.5",
+]
+
+[tool.pdm.scripts]
+post_install = "./git-hooks/install.sh"
+sort = "isort src/ tests/"
+format = "black src/ tests/"
+lint = "ruff check src/ tests/"
+test = "pytest -v tests/"
+checks = {composite = ["sort -c", "format --check", "lint", "test"]}
+fix = {composite = ["sort", "format", "lint", "test"]}
+"docs:serve" = "mkdocs serve"
+"docs:build" = "mkdocs build"
+
+[tool.isort]
+profile = "black"
+skip_glob = ["*venv*"]
+lines_between_types = 1
+combine_as_imports = true
+
+[tool.black]
+line-length = 120
+force_single_line = true
+exclude = '/.*venv.+/'

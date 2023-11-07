@@ -1,0 +1,10 @@
+{
+    "project_name": "example-project",
+    "project_version": "0.1.0",
+    "author_name": "Murali Manohar",
+    "author_email": "kmanoharmurali@gmail.com",
+    "package_name": "example_package",
+    "_copy_without_render": [
+        ".github/workflows/*.yaml"
+    ]
+}
